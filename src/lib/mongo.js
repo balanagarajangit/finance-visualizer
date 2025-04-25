@@ -10,5 +10,5 @@ export async function connectDB() {
     await client.connect();
     isConnected = true;
   }
-  return client.db("financeApp"); 
+  return client.db("FinanceApp"); 
 }
