@@ -15,9 +15,11 @@ export async function POST(req) {
   try {
     const body = await req.json();
     const { description, amount, date, category, budget } = body;
+
     if (!description || !amount || !date) {
       return new Response(JSON.stringify({ success: false, message: "Description, amount, and date are required." }), { status: 400 });
     }
+
     const transaction = {
       description,
       amount,
@@ -41,6 +43,10 @@ export async function DELETE(req) {
 
     if (!id) {
       return new Response(JSON.stringify({ success: false, message: "Transaction ID is required." }), { status: 400 });
+    }
+
+    if (!ObjectId.isValid(id)) {
+      return new Response(JSON.stringify({ success: false, message: "Invalid transaction ID." }), { status: 400 });
     }
 
     const db = await connectDB();
